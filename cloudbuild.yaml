@@ -1,0 +1,13 @@
+steps:
+  - name: 'gcr.io/cloud-builders/mvn'
+    args: ['package']
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: [
+      'run', 'deploy', 'gcp-api-new',
+      '--image=gcr.io/$PROJECT_ID/gcp-api-new',
+      '--region=us-central1',
+      '--platform=managed',
+      '--allow-unauthenticated'
+    ]
+images:
+  - gcr.io/$PROJECT_ID/gcp-api-new
