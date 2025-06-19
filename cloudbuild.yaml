@@ -1,12 +1,11 @@
 steps:
   - name: 'gcr.io/cloud-builders/mvn'
-    args: ['package']
-
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/authentication-454507/gcp-api-new', '.']
-
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/authentication-454507/gcp-api-new']
+    entrypoint: 'mvn'
+    args: [
+      'compile',
+      'com.google.cloud.tools:jib-maven-plugin:3.4.0:build',
+      '-Dimage=gcr.io/authentication-454507/gcp-api-new'
+    ]
 
   - name: 'gcr.io/cloud-builders/gcloud'
     args: [
@@ -16,9 +15,9 @@ steps:
       '--platform=managed',
       '--allow-unauthenticated'
     ]
-    
+
 images:
   - gcr.io/authentication-454507/gcp-api-new
 
 options:
-  logging: CLOUD_LOGGING_ONLY  
+  logging: CLOUD_LOGGING_ONLY
