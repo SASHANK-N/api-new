@@ -11,3 +11,8 @@ steps:
     ]
 images:
   - gcr.io/$PROJECT_ID/gcp-api-new
+
+options:
+  logging: LEGACY
+logsBucket: "gs://your-custom-logs-bucket"
+
